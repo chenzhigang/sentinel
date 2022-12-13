@@ -1,0 +1,43 @@
+server:
+  port: 17076
+
+spring:
+  application:
+    name: springcloud-sentinel
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: localhost:8848
+        namespace: 6810494e-7c32-4371-9cdc-c263064f44c6
+        group: DEFAULT_GROUP
+      config:
+        server-addr: localhost:8848
+        namespace: 6810494e-7c32-4371-9cdc-c263064f44c6
+        group: DEFAULT_GROUP
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      log:
+        dir: D:/logs/sentinel/
+      datasource:
+        ds1:
+          nacos:
+            server-addr: localhost:8848
+            namespace: 6810494e-7c32-4371-9cdc-c263064f44c6
+            dataId: ${spring.application.name}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+  freemarker:
+    enabled: true
+    template-loader-path: classpath:/templates/
+    check-template-location: false
+  main:
+    allow-circular-references: true
+
+
+feign:
+  sentinel:
+    enabled: true
+
